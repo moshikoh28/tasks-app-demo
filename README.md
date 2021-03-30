@@ -11,7 +11,7 @@ In the project directory, you can run:
 Runs the app in the development mode.\
 
 
-## Usage
+## Installation
 
 1. Download the project as a ZIP file.
 2. Extract the ZIP and open the directory via Visual Stuido Code (or other IDE you want).
