@@ -20,11 +20,11 @@ class Kanban extends React.Component {
                 },
             isDataExist: false,
             name: "",
+            modalInputName: "",
             modal: false,
             updateModal: false,
             board: "",
             boardId: "",
-            modalInputName: "",
             taskId: ""
         }
     }
@@ -61,6 +61,7 @@ class Kanban extends React.Component {
         this.setState({ modalInputName: "", modal: false, updateModal: false });
     }
     
+    //Handle the drag and drop between the lanes
     async onDragEnd(result, columns){
         if (!result.destination) return;
         const { source, destination } = result;
@@ -85,13 +86,13 @@ class Kanban extends React.Component {
             }});
             const db = firebase.firestore();
             
-            //Add a task to new destination
+            //Add a task to new destination to save the new task status
             await db.collection("boards").doc(destColumn.name).collection("tasks").add({
                 description: removed.content,
                 status: destColumn.name
             }); ;
             this.addTask(destColumn.name, destination.droppableId)
-            //remove task from old source
+            //remove a task from old source
             this.removeTask(sourceColumn.name, removed.id, source.droppableId)
         } else {
             const column = columns[source.droppableId];
@@ -112,6 +113,7 @@ class Kanban extends React.Component {
         this.prepareData();
     }
 
+    //Get the data from our boards collection
     async prepareData() {
         let itemsFromBackend = this.state.columns;
         const db = firebase.firestore();
@@ -153,9 +155,11 @@ class Kanban extends React.Component {
         let itemsFromBackend= this.state.columns;
         let tasks = []
         const db = firebase.firestore();
+        //Update a specific task
         await db.collection("boards").doc(board).collection("tasks").doc(id).update({
             "description": description,
         });
+        //Get all the tasks including this new one
         await db.collection("boards").doc(board).collection("tasks").get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
@@ -169,11 +173,12 @@ class Kanban extends React.Component {
     async removeTask(board, id, columnId){
         let itemsFromBackend= this.state.columns;
         let tasks = []
-        let tasks_counter = 0;
+        let tasks_counter = 10;
         const db = firebase.firestore();
-
+        //Remove a specific task
         await db.collection("boards").doc(board).collection("tasks").doc(id).delete()
-
+        
+        //Get all the tasks without the removed task
         await db.collection("boards").doc(board).collection("tasks").get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
@@ -181,6 +186,7 @@ class Kanban extends React.Component {
                 tasks_counter++;
             });
         });
+        //Update the new tasks amount
         db.collection("boards").doc(board).update({
             "num_tasks": tasks_counter,
         });
