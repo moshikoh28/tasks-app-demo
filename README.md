@@ -15,9 +15,12 @@ Runs the app in the development mode.\
 
 1. Download the project as a ZIP file.
 2. Extract the ZIP and open the directory via Visual Stuido Code (or other IDE you want).
-3. Open a new terminal and write this command: "cd tasks-app-demo-master" to enter the code directory
-4. Run "yarn install"
-5. Run "yarn start"
+3. Open a new terminal and write the following command to enter the code directory
+### `cd tasks-app-demo-master`
+4. Then install the packages that the code depends on by running:
+### `yarn install`
+5. Finally run:
+### `yarn start`
 6. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.
