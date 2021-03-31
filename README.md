@@ -28,6 +28,6 @@ You will also see any lint errors in the console.
 
 ## Usage
 
-In this kanban borad you have 4 borad that describe 4 assignment status: Candidates, In Progress, QA / Code review and Completed.
+In this kanban borad you have 4 borads that describe 4 assignment status: Candidates, In Progress, QA / Code review and Completed.
 You can drag and drop a task from one lane to another, edit a task description and add a task to each board.
 In addition, the task status is maintained so after dragging and dropping you can refresh the page and the tasks will remain on the same borad you left them.
